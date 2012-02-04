@@ -63,6 +63,7 @@
         <targetJdk>1.6</targetJdk>
         <birt.version>2.5.0</birt.version>
         <birt.libs.groupId>org.mifos.birtlibs</birt.libs.groupId>
+        <exec.war.main.class>org.mifos.server.ExecutableWARServerLauncherMain</exec.war.main.class>
     </properties>
 
     <modules>
@@ -774,7 +775,12 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.11</version>
             	</plugin>
-            	
+                <plugin>
+                    <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                    <artifactId>launch4j-maven-plugin</artifactId>
+                    <version>1.5</version>
+            	</plugin>
+
         		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
         		<plugin>
         			<groupId>org.eclipse.m2e</groupId>

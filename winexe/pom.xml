@@ -1,0 +1,117 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.mifos</groupId>
+		<artifactId>mifos-parent</artifactId>
+		<version>1.10-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>mifos-winexe</artifactId>
+	<name>Mifos - Windows EXE Launcher (mifos.exe)</name>
+	<description>Microsoft Windows wrapper,can be built under non-Windows OS (Linux) as well</description>
+
+	<!-- TODO There almost isn't much of a point having this as a separate module?  
+		 Could/should integrate below into the mifos-war build? Opinions? -->
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy</id>
+						<!-- This is so the copy happens before test runs: -->
+						<phase>generate-test-resources</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>mifos-war</artifactId>
+									<version>${project.version}</version>
+									<type>war</type>
+									<overWrite>true</overWrite>
+									<destFileName>mifos.war</destFileName>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>com.akathist.maven.plugins.launch4j</groupId>
+				<artifactId>launch4j-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>launch4j</id>
+						<phase>package</phase>
+						<goals>
+							<goal>launch4j</goal>
+						</goals>
+						<configuration>
+							<!-- TODO Icon & Splash screen... more... ?
+								 FIRST TRY IT OUT, AND PUBLISH, IN 
+								 @see http://9stmaryrd.com/tools/launch4j-maven-plugin/
+								 @see http://launch4j.sourceforge.net/docs.html
+							 -->
+							<headerType>gui</headerType>
+							<jar>${project.build.directory}/dependency/mifos.war</jar>
+							<outfile>${project.build.directory}/mifos.exe</outfile>
+							<downloadUrl>http://java.com/download</downloadUrl>
+							<classPath>
+								<!-- PITA that launch4j doesn't read main class from MANIFEST, and this has to be repeated here -->
+								<mainClass>org.mifos.server.ExecutableWARServerLauncherMain</mainClass>
+								<preCp>anything</preCp>
+							</classPath>
+							<jre>
+								<minVersion>1.6.0</minVersion>
+								<!-- TODO Is a JRE enough? Because of the JSPs, we may require JDK... in which case downloadUrl must be changed as well! -->
+								<jdkPreference>preferJre</jdkPreference>
+							</jre>
+							<!-- TODO Can I simply all these fields below, and remove most of them? -->
+							<versionInfo>
+								<fileVersion>1.0.0.0</fileVersion>
+								<txtFileVersion>${project.version}</txtFileVersion>
+								<fileDescription>Mifos Microfinance http://mifos.org/</fileDescription>
+								<!-- TODO What's the correct Copyright line for Mifos now, post GF?! -->
+								<copyright>Mifos</copyright>
+								<productVersion>1.0.0.0</productVersion>
+								<txtProductVersion>1.0.0.0</txtProductVersion>
+								<productName>Mifos</productName>
+								<companyName>Mifos</companyName>
+								<internalName>mifos</internalName>
+								<originalFilename>mifos.exe</originalFilename>
+							</versionInfo>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<!-- TODO I don't want to leave these repo in here... 
+	@see https://issues.sonatype.org/browse/OSSRH-2849 - remove when I've somehow managed to get launch4j-maven-plugin to Central
+	or at the very least put on maven.mifos.org ... -->
+
+	<!-- NOTE: launch4j-maven-plugin downloads non-plugin workdir-* artifacts, 
+		so we need both a repository as well as a pluginRepository: -->
+	<repositories>
+		<repository>
+			<id>vorburger-github-releases</id>
+			<url>http://vorburger.github.com/m2p2-repository/maven/releases</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>vorburger-github-releases</id>
+			<url>http://vorburger.github.com/m2p2-repository/maven/releases</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+</project>

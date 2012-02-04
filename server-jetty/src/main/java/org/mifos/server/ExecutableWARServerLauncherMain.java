@@ -38,7 +38,8 @@ import java.net.URL;
  * @author Michael Vorburger
  */
 public class ExecutableWARServerLauncherMain extends WARServerLauncher {
-
+	// If this class is ever renamed or refactored, please change the ${exec.war.main.class} property in the parent pom.xml
+	
     public ExecutableWARServerLauncherMain(int httpPort, String urlContext) throws IOException {
         super(httpPort, urlContext, getWARFile());
     }

@@ -66,7 +66,7 @@
                             </descriptors>
                             <archive>
                                 <manifest>
-                                    <mainClass>org.mifos.server.ExecutableWARServerLauncherMain</mainClass>
+                                    <mainClass>${exec.war.main.class}</mainClass>
                                 </manifest>
                             </archive>
                         </configuration>
