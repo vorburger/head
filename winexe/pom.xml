@@ -19,14 +19,14 @@
 	<build>
 		<plugins>
 		
-<!-- TODO Since we use <dontWrapJar>true</dontWrapJar>, we don't actually need the mifos.war to be present to link against anymore, do we?! -->
+<!-- TODO Since we use <dontWrapJar>true</dontWrapJar>, we don't actually need the mifos.war to be present to link against anymore, do we?!
 		
 			<plugin>
 				<artifactId>maven-dependency-plugin</artifactId>
 				<executions>
 					<execution>
 						<id>copy</id>
-						<!-- This is so the copy happens before test runs: -->
+						<! - - This is so the copy happens before test runs: - - >
 						<phase>generate-test-resources</phase>
 						<goals>
 							<goal>copy</goal>
@@ -46,7 +46,7 @@
 					</execution>
 				</executions>
 			</plugin>
-
+ -->
 			<plugin>
 				<groupId>com.akathist.maven.plugins.launch4j</groupId>
 				<artifactId>launch4j-maven-plugin</artifactId>
