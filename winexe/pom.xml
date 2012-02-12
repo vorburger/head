@@ -18,6 +18,9 @@
 
 	<build>
 		<plugins>
+		
+<!-- TODO Since we use <dontWrapJar>true</dontWrapJar>, we don't actually need the mifos.war to be present to link against anymore, do we?! -->
+		
 			<plugin>
 				<artifactId>maven-dependency-plugin</artifactId>
 				<executions>
@@ -60,8 +63,12 @@
 								 @see http://9stmaryrd.com/tools/launch4j-maven-plugin/
 								 @see http://launch4j.sourceforge.net/docs.html
 							 -->
-							<headerType>gui</headerType>
-							<jar>${project.build.directory}/dependency/mifos.war</jar>
+							<!-- TODO Change to gui when logging & Tray Icons work -->
+							<headerType>console</headerType>
+							<!-- Sometimes useful for debug in dev, only: <headerType>console</headerType> -->
+							<jar>mifos.war</jar>
+							<dontWrapJar>true</dontWrapJar>
+							<errTitle>Mifos</errTitle>
 							<outfile>${project.build.directory}/mifos.exe</outfile>
 							<downloadUrl>http://java.com/download</downloadUrl>
 							<classPath>
@@ -74,12 +81,10 @@
 								<!-- TODO Is a JRE enough? Because of the JSPs, we may require JDK... in which case downloadUrl must be changed as well! -->
 								<jdkPreference>preferJre</jdkPreference>
 							</jre>
-							<!-- TODO Can I simply all these fields below, and remove most of them? -->
 							<versionInfo>
 								<fileVersion>1.0.0.0</fileVersion>
 								<txtFileVersion>${project.version}</txtFileVersion>
 								<fileDescription>Mifos Microfinance http://mifos.org/</fileDescription>
-								<!-- TODO What's the correct Copyright line for Mifos now, post GF?! -->
 								<copyright>Mifos</copyright>
 								<productVersion>1.0.0.0</productVersion>
 								<txtProductVersion>1.0.0.0</txtProductVersion>

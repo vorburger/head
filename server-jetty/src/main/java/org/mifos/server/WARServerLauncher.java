@@ -21,6 +21,11 @@
 package org.mifos.server;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.jar.JarInputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import org.eclipse.jetty.util.IO;
 import org.eclipse.jetty.webapp.WebAppContext;
@@ -37,12 +42,34 @@ public class WARServerLauncher extends AbstractServerLauncher {
 
     private final File warFile;
 
-    public WARServerLauncher(int httpPort, String urlContext, File warFile) {
+    /**
+     * Constructor.
+     * 
+     * @param httpPort HTTP Port
+     * @param urlContext Web Context
+     * @param warFile WAR Web Archive
+     * @throws IllegalArgumentException if warFile is not a valid JAR (WAR) file, e.g. corrupt or technically valid but completely empty
+     * @throws IOException if warFile could not even be found or opened for sanity checking
+     */
+    public WARServerLauncher(int httpPort, String urlContext, File warFile) throws IllegalArgumentException, IOException {
         super(httpPort, urlContext);
         this.warFile = warFile;
+        checkArchive(warFile);
     }
 
-    @Override
+    private void checkArchive(File jarFile) throws IOException, IllegalArgumentException {
+		FileInputStream fis = new FileInputStream(jarFile);
+		ZipInputStream zis = new JarInputStream(fis);
+		ZipEntry e = zis.getNextEntry();
+		zis.closeEntry();
+		zis.close();
+		fis.close();
+		
+		if (e == null)
+			throw new IllegalArgumentException("This does not appear to be a valid JAR (WAR) file: " + jarFile);
+	}
+
+	@Override
     protected WebAppContext createWebAppContext() throws Exception {
         WebAppContext warCtx = new WebAppContext(warFile.toURI().toString(), "/" + getContext());
 
