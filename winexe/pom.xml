@@ -98,6 +98,8 @@
 									in which case downloadUrl must be changed as well! -->
 								<jdkPreference>preferJre</jdkPreference>
 							</jre>
+							<!-- TODO Must set Heap Size etc! Provide a shared definition! Better set them in a mifos.l4j.ini, see http://launch4j.sourceforge.net/docs.html#Additional_jvm_options -->
+							<!-- TODO Must set, and test <singleInstance>... if already running, just re-open Browser! -->
 							<versionInfo>
 								<!-- Use of parsedVersion because Windows fileVersion & productVersion have to be completely numeric and cannot contain -SNAPSHOT -->
 								<fileVersion>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}.${parsedVersion.buildNumber}</fileVersion>
