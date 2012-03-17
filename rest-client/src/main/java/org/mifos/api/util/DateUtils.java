@@ -1,4 +1,4 @@
-package org.mifos.api.util.ui;
+package org.mifos.api.util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

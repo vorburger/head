@@ -25,7 +25,7 @@ import java.util.Date;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.mifos.api.entities.SimpleListItem;
-import org.mifos.api.util.ui.DateUtils;
+import org.mifos.api.util.DateUtils;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TransactionHistoryEntry implements SimpleListItem, Serializable {

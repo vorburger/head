@@ -25,7 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.mifos.api.util.serialization.JodaLocalDateDeserializer;
+import org.mifos.api.util.JodaLocalDateDeserializer;
 
 public class CollectionSheetData implements Serializable {
 

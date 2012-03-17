@@ -18,7 +18,7 @@
  * explanation of the license and how it is applied.
  */
 
-package org.mifos.api.util.serialization;
+package org.mifos.api.util;
 
 import java.io.IOException;
 import java.util.Calendar;
