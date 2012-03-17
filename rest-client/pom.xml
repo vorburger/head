@@ -1,0 +1,32 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>mifos-rest-client</artifactId>
+	<name>Mifos - REST API Client</name>
+	<description>Mifos REST API Client (runs standalone, embedded into other apps)</description>
+	<url>http://www.mifos.org</url>
+
+	<parent>
+		<artifactId>mifos-parent</artifactId>
+		<groupId>org.mifos</groupId>
+		<version>1.11-SNAPSHOT</version>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+		</dependency>
+		<!-- Not using org.springframework.android:spring-android-rest-template here,
+			 but normal Spring Framework.  As the org.springframework.web.client.RestTemplate
+			 is in the same Java package in both the org.springframework.android:spring-android-rest-template
+			 as well as the org.springframework:spring-web, this should work.
+			 @see mifos-android-client/pom.xml 
+		-->
+        <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+        </dependency>
+	</dependencies>
+</project>

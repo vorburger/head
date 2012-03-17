@@ -3,8 +3,8 @@
 
     <artifactId>mifos-rest</artifactId>
     <packaging>jar</packaging>
-    <name>Mifos - REST API</name>
-    <description>Mifos REST API</description>
+    <name>Mifos - REST API Server</name>
+    <description>Mifos REST API Server part (runs inside Mifos WAR)</description>
     <url>http://www.mifos.org</url>
 
     <parent>
@@ -15,15 +15,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <debug>true</debug>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-            </plugin>
             <plugin>
 			    <groupId>org.codehaus.mojo</groupId>
 			    <artifactId>aspectj-maven-plugin</artifactId>
