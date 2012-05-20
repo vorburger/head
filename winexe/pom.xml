@@ -87,6 +87,7 @@
 								<companyName>Mifos</companyName>
 								<internalName>mifos</internalName>
 							</versionInfo>
+							<icon>src/main/launch4j/mifos.ico</icon>
 						</configuration>
 					</execution>
 				</executions>
