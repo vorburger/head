@@ -59,8 +59,7 @@
 							<outfile>${project.build.directory}/mifos.exe</outfile>
 							<downloadUrl>http://java.com/download</downloadUrl>
 							<classPath>
-								<!-- PITA that launch4j doesn't read main class from MANIFEST, and so this has to be repeated here: -->
-								<mainClass>org.mifos.server.ExecutableWARServerLauncherMain</mainClass>
+								<mainClass>${exec.war.main.class}</mainClass>
 								<!-- NOTE This is weird, this <preCp>anything</preCp> MUST be left as is... it adds the  
 								     literal String "anything" before mifos.jar to the -cp, but removing this line leads to 
 								     "An error occurred while starting the application." - probably a launch4j bug. 

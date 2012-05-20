@@ -5,7 +5,7 @@
     <artifactId>mifos-war</artifactId>
     <packaging>war</packaging>
     <name>Mifos - WAR</name>
-    <description>The actual mifos.war (as the mifos-webapp/application is now a JAR)</description>
+    <description>The actual mifos.war (as the mifos-webapp/application is now a JAR), including making it &quot;self-executable&quot; with an embedded Jetty (for &quot;raw&quot; java -jar mifos.war), as well as the mifos Unix Shell and mifos.bat Windows starter scripts for the executable WAR (based on appassembler) and the mifos.exe launcher (based on Launch4j).</description>
 
     <parent>
         <groupId>org.mifos</groupId>
@@ -49,6 +49,31 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
+<!--
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>appassembler-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>appassembler</id>
+						<phase>package</phase>
+						<goals>
+							<goal>assemble</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					< ! - - Identical settings are also defined in mifos.l4j.ini for Launch4j (remember to change both) - - >
+					<extraJvmArguments>-Xms1024M -Xmx1024M -XX:MaxPermSize=256m</extraJvmArguments>
+					<programs>
+						<program>
+							<mainClass>${exec.war.main.class}</mainClass>
+							<name>mifos</name>
+						</program>
+					</programs>
+				</configuration>
+			</plugin>
+ -->			
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <executions>
