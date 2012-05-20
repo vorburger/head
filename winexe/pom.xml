@@ -52,9 +52,7 @@
 								 @see http://launch4j.sourceforge.net/docs.html
 							-->
 							<headerType>gui</headerType>
-							<!-- Sometimes useful for debug in dev, only: 
-								<headerType>console</headerType> 
-							-->
+							<!-- Sometimes useful for debug in dev, only: <headerType>console</headerType> -->
 							<jar>mifos.war</jar>
 							<dontWrapJar>true</dontWrapJar>
 							<errTitle>Mifos</errTitle>
@@ -69,6 +67,11 @@
 								 -->
 								<preCp>anything</preCp>
 							</classPath>
+							<chdir>.</chdir>
+							<!-- Let's NOT use <stayAlive>true</stayAlive>, as that's more confusing than helpful...
+								 users will THINK that they can kill (or Ctrl-C) the mifos.exe and expect Mifos
+								 to stop - but actually it won't, as the javaw.exe will keep running... better
+								 let the mifos.exe live only to launch and show the Splash screen, then stop. -->
 							<singleInstance>
 								<!-- This would be useful, to prevent end-users from clicking
 									 mifos.exe twice and to avoid having two processes running,
@@ -105,6 +108,8 @@
 							<icon>src/main/launch4j/mifos.ico</icon>
 							<splash>
 								<file>src/main/launch4j/mifos-splash.bmp</file>
+								<!-- This "timeout" (it's just how long the Splash screen will be shown)
+									 should be set to approx. how long it takes for the tray icon infos to appear... -->
 								<timeout>30</timeout>
 							</splash>
 						</configuration>
