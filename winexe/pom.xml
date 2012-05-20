@@ -14,39 +14,13 @@
 	<description>Microsoft Windows wrapper,can be built under non-Windows OS (Linux) as well</description>
 
 	<!-- TODO There almost isn't much of a point having this as a separate module? 
-		Could/should integrate below into the mifos-war build? Opinions? -->
+		Could/should integrate below into the mifos-war build? Opinions?
+		It's useful during dev of winexe when you have to rebuild often,
+		I'll merge it once it's ready for master 
+	-->
 
 	<build>
 		<plugins>
-		
-<!-- TODO Since we use <dontWrapJar>true</dontWrapJar>, we don't actually need the mifos.war to be present to link against anymore, do we?!
-		
-			<plugin>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy</id>
-						<! - - This is so the copy happens before test runs: - - >
-						<phase>generate-test-resources</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>${project.groupId}</groupId>
-									<artifactId>mifos-war</artifactId>
-									<version>${project.version}</version>
-									<type>war</type>
-									<overWrite>true</overWrite>
-									<destFileName>mifos.war</destFileName>
-								</artifactItem>
-							</artifactItems>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
- -->
 			<plugin>
 				<!-- Used to set the parsedVersion.* properties, see http://mojo.codehaus.org/build-helper-maven-plugin/usage.html -->
 				<groupId>org.codehaus.mojo</groupId>
@@ -73,24 +47,22 @@
 							<goal>launch4j</goal>
 						</goals>
 						<configuration>
-							<!-- TODO Icon & Splash screen... more... ?
-								 FIRST TRY IT OUT, AND PUBLISH, IN 
+							<!-- 
 								 @see http://9stmaryrd.com/tools/launch4j-maven-plugin/
 								 @see http://launch4j.sourceforge.net/docs.html
-							 -->
-							<!-- TODO Change to gui when logging & Tray Icons work -->
-							<headerType>console</headerType>
-							<!-- Sometimes useful for debug in dev, only: <headerType>console</headerType> -->
+							-->
+							<headerType>gui</headerType>
+							<!-- Sometimes useful for debug in dev, only: 
+								<headerType>console</headerType> 
+							-->
 							<jar>mifos.war</jar>
 							<dontWrapJar>true</dontWrapJar>
 							<errTitle>Mifos</errTitle>
 							<outfile>${project.build.directory}/mifos.exe</outfile>
 							<downloadUrl>http://java.com/download</downloadUrl>
 							<classPath>
-								<!-- PITA that launch4j doesn't read main class from MANIFEST, and 
-									this has to be repeated here -->
+								<!-- PITA that launch4j doesn't read main class from MANIFEST, and so this has to be repeated here: -->
 								<mainClass>org.mifos.server.ExecutableWARServerLauncherMain</mainClass>
-								<preCp>anything</preCp>
 							</classPath>
 							<jre>
 								<minVersion>1.6.0</minVersion>
@@ -98,7 +70,9 @@
 									in which case downloadUrl must be changed as well! -->
 								<jdkPreference>preferJre</jdkPreference>
 							</jre>
-							<!-- TODO Must set Heap Size etc! Provide a shared definition! Better set them in a mifos.l4j.ini, see http://launch4j.sourceforge.net/docs.html#Additional_jvm_options -->
+							<!-- Note that -Xms -Xmx -XX:MaxPermSize heap etc. sizes are
+							     intentionally not baked into the EXE, but are defined in a mifos.l4j.ini,
+							     see http://launch4j.sourceforge.net/docs.html#Additional_jvm_options -->
 							<!-- TODO Must set, and test <singleInstance>... if already running, just re-open Browser! -->
 							<versionInfo>
 								<!-- Use of parsedVersion because Windows fileVersion & productVersion have to be completely numeric and cannot contain -SNAPSHOT -->
