@@ -63,6 +63,11 @@
 							<classPath>
 								<!-- PITA that launch4j doesn't read main class from MANIFEST, and so this has to be repeated here: -->
 								<mainClass>org.mifos.server.ExecutableWARServerLauncherMain</mainClass>
+								<!-- NOTE This is weird, this <preCp>anything</preCp> MUST be left as is... it adds the  
+								     literal String "anything" before mifos.jar to the -cp, but removing this line leads to 
+								     "An error occurred while starting the application." - probably a launch4j bug. 
+								 -->
+								<preCp>anything</preCp>
 							</classPath>
 							<jre>
 								<minVersion>1.6.0</minVersion>
@@ -88,6 +93,10 @@
 								<internalName>mifos</internalName>
 							</versionInfo>
 							<icon>src/main/launch4j/mifos.ico</icon>
+							<splash>
+								<file>src/main/launch4j/mifos-splash.bmp</file>
+								<timeout>30</timeout>
+							</splash>
 						</configuration>
 					</execution>
 				</executions>
