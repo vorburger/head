@@ -69,6 +69,16 @@
 								 -->
 								<preCp>anything</preCp>
 							</classPath>
+							<singleInstance>
+								<!-- This would be useful, to prevent end-users from clicking
+									 mifos.exe twice and to avoid having two processes running,
+									 BUT this doesn't actually seem to be working... :-(
+									 On Windows 7 at least, may be it works XP,
+									 so leaving it as no harm either.
+								 -->
+								<mutexName>mifos-exe-singleInstance-mutex</mutexName>
+								<windowTitle>Mifos</windowTitle>
+							</singleInstance>
 							<jre>
 								<minVersion>1.6.0</minVersion>
 								<!-- TODO Is a JRE enough? Because of the JSPs, we may require JDK... 
