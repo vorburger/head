@@ -120,23 +120,4 @@
 		</plugins>
 	</build>
 
-	<!-- TODO I don't want to leave these repo in here... @see https://issues.sonatype.org/browse/OSSRH-2849 
-		- remove when I've somehow managed to get launch4j-maven-plugin to Central 
-		or at the very least put on maven.mifos.org ... -->
-
-	<!-- NOTE: launch4j-maven-plugin downloads non-plugin workdir-* artifacts, 
-		so we need both a repository as well as a pluginRepository: -->
-	<repositories>
-		<repository>
-			<id>vorburger-github-releases</id>
-			<url>http://vorburger.github.com/m2p2-repository/maven/releases</url>
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>vorburger-github-releases</id>
-			<url>http://vorburger.github.com/m2p2-repository/maven/releases</url>
-		</pluginRepository>
-	</pluginRepositories>
-
 </project>

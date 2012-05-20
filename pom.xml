@@ -88,8 +88,9 @@
         <module>rest</module>
         <module>war-test</module>
         <module>war-test-exec</module>
-        <!-- Keep this module in last, the module which does not have interdependency will build in the order they are defined here -->
+        <!-- Keep these modules in last, as module which do not have interdependency will build in the order they are defined here -->
         <module>acceptanceTests</module>
+        <module>winexe</module>
     </modules>
 
 
@@ -778,7 +779,7 @@
                 <plugin>
                     <groupId>com.akathist.maven.plugins.launch4j</groupId>
                     <artifactId>launch4j-maven-plugin</artifactId>
-                    <version>1.5</version>
+                    <version>1.5.1</version>
             	</plugin>
 
         		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
