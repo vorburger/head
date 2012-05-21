@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.net.JarURLConnection;
 import java.net.URL;
 
+import org.mifos.server.tray.MifosTray;
+
 
 /**
  * Main class.
@@ -63,7 +65,22 @@ public class ExecutableWARServerLauncherMain extends WARServerLauncher {
         }
 
         final ExecutableWARServerLauncherMain serverLauncher = new ExecutableWARServerLauncherMain(port, "mifos");
-        serverLauncher.startServer();
+
+		final MifosTray tray = new MifosTray(serverLauncher.getAppURL(), "Mifos.log") {
+			@Override
+			public void quit() {
+				super.quit();
+				try {
+					serverLauncher.stopServer();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		
+		tray.init();
+		serverLauncher.startServer();
+		tray.started(true);
     }
 
 }
