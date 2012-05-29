@@ -43,16 +43,27 @@ public class ExecutableWARServerLauncherMain extends WARServerLauncher {
 	// If this class is ever renamed or refactored, please change the ${exec.war.main.class} property in the parent pom.xml
 	
     public ExecutableWARServerLauncherMain(int httpPort, String urlContext) throws IOException {
-        super(httpPort, urlContext, getWARFile());
+        super(httpPort, urlContext, getWARFileOrDirectory());
     }
 
+    private static File getWARFileOrDirectory() throws IOException {
+    	File warDir = new File("mifos/webapp").getAbsoluteFile();
+    	if (warDir.exists() && warDir.isDirectory()) {
+    		System.out.println("WAR directory found (already unpacked previously) : " + warDir);
+    		return warDir;
+    	} else {
+    		System.out.println("WAR directory NOT found: " + warDir);
+    		return getWARFile();
+    	}
+    }
+    
     private static File getWARFile() throws IOException {
         final String classResourceName = ExecutableWARServerLauncherMain.class.getName().replace('.', '/') + ".class";
         URL url = ExecutableWARServerLauncherMain.class.getClassLoader().getResource(classResourceName);
         if (url == null)
             throw new IOException("URL for class resource not found: " + classResourceName);
         File warFile = new File(((JarURLConnection) url.openConnection()).getJarFile().getName());
-        System.out.println("WAR File is " + warFile);
+        System.out.println("WAR Archive File found, going to unpack: " + warFile);
         return warFile.getAbsoluteFile();
     }
 
@@ -69,12 +80,14 @@ public class ExecutableWARServerLauncherMain extends WARServerLauncher {
 		final MifosTray tray = new MifosTray(serverLauncher.getAppURL(), "Mifos.log") {
 			@Override
 			public void quit() {
-				super.quit();
+				// First stop the server
 				try {
 					serverLauncher.stopServer();
-				} catch (Exception e) {
+				} catch (Throwable e) {
 					e.printStackTrace();
 				}
+				// Then remove the tray icon
+				super.quit();
 			}
 		};
 		

@@ -58,6 +58,9 @@ public class WARServerLauncher extends AbstractServerLauncher {
     }
 
     private void checkArchive(File jarFile) throws IOException, IllegalArgumentException {
+    	if (jarFile.isDirectory())
+    		return;
+    	
 		FileInputStream fis = new FileInputStream(jarFile);
 		ZipInputStream zis = new JarInputStream(fis);
 		ZipEntry e = zis.getNextEntry();
@@ -73,13 +76,18 @@ public class WARServerLauncher extends AbstractServerLauncher {
     protected WebAppContext createWebAppContext() throws Exception {
         WebAppContext warCtx = new WebAppContext(warFile.toURI().toString(), "/" + getContext());
 
-        // http://mifosforge.jira.com/browse/MIFOS-4765
-        File warCtxTmpDir = new File(warFile.getParentFile(), warFile.getName() + "_tmp");
-        IO.delete(warCtxTmpDir);
-        warCtx.setTempDirectory(warCtxTmpDir);
-        warCtxTmpDir.deleteOnExit();
+        if (warFile.isFile()) {
+	        // http://mifosforge.jira.com/browse/MIFOS-4765
+	        File warCtxTmpDir = new File(warFile.getParentFile(), warFile.getName().substring(0, warFile.getName().indexOf('.')));
+	        IO.delete(warCtxTmpDir);
+	        warCtx.setTempDirectory(warCtxTmpDir);
+	        // DON'T warCtxTmpDir.deleteOnExit();
         
-        warCtx.setExtractWAR(true);
+	        warCtx.setExtractWAR(true);
+        } else {
+        	// if warFile is a dir, it will be mifos/webapp - the temp is the one up: 
+	        warCtx.setTempDirectory(warFile.getParentFile());
+        }
         
         return warCtx;
     }

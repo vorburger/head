@@ -234,6 +234,12 @@
                 <artifactId>mifos-server-workspace</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.mifos</groupId>
+                <artifactId>mifos-war</artifactId>
+                <type>war</type>
+                <version>${project.version}</version>
+            </dependency>
 
 
             <dependency>

@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>mifos-dist</artifactId>
+	<packaging>pom</packaging>
+	<name>Mifos - Distribution</name>
+	<description>The mifos.zip distribution, including launchers Unix Shell and mifos.bat Windows starter scripts for the executable WAR (based on appassembler) and the mifos.exe launcher (based on Launch4j).</description>
+
+	<parent>
+		<groupId>org.mifos</groupId>
+		<artifactId>mifos-parent</artifactId>
+		<version>1.10-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.mifos</groupId>
+			<artifactId>mifos-war</artifactId>
+			<type>war</type>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>appassembler-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>appassembler</id>
+						<phase>package</phase>
+						<goals>
+							<goal>assemble</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<useAllDependencies>true</useAllDependencies>
+          			<repositoryLayout>flat</repositoryLayout>
+					<!-- Identical settings are also defined in mifos.l4j.ini for Launch4j (remember to change both) -->
+					<extraJvmArguments>-Xms1024M -Xmx1024M -XX:MaxPermSize=256m</extraJvmArguments>
+					<programs>
+						<program>
+							<mainClass>${exec.war.main.class}</mainClass>
+							<name>mifos</name>
+						</program>
+					</programs>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

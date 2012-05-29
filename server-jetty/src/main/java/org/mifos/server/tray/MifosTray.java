@@ -50,7 +50,13 @@ public class MifosTray extends Tray {
 		if (openBrowser)
 			openURL(mifosURL);
 	}
-	
+
+	@Override
+	public void quit() {
+		message("Mifos", "has been stopped");
+		super.quit();
+	}
+
 	protected void openURL(String uri) {
 		try {
 			java.awt.Desktop.getDesktop().browse(new URI(uri));
