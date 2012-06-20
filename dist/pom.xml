@@ -39,6 +39,8 @@
 				<configuration>
 					<useAllDependencies>true</useAllDependencies>
           			<repositoryLayout>flat</repositoryLayout>
+          			<repositoryName>lib</repositoryName>
+          			<!-- This doesn't work <useAsterikClassPath>true</useAsterikClassPath>, at least in appassembler-maven-plugin v1.2.2 :-( -->	
 					<!-- Identical settings are also defined in mifos.l4j.ini for Launch4j (remember to change both) -->
 					<extraJvmArguments>-Xms1024M -Xmx1024M -XX:MaxPermSize=256m</extraJvmArguments>
 					<programs>
