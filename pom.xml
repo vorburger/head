@@ -90,7 +90,7 @@
         <module>war-test-exec</module>
         <!-- Keep these modules in last, as module which do not have interdependency will build in the order they are defined here -->
         <module>acceptanceTests</module>
-        <module>winexe</module>
+        <module>dist</module>
     </modules>
 
 

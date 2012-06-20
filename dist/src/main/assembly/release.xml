@@ -45,5 +45,13 @@
             <source>src/main/release/install-ubuntu.sh</source>
             <outputDirectory/>
         </file>
+        <file>
+        	<source>target/mifos.exe</source>
+        	<outputDirectory>bin</outputDirectory>
+        </file>
+        <file>
+        	<source>src/main/launch4j/mifos.l4j.ini</source>
+        	<outputDirectory>bin</outputDirectory>
+        </file>
     </files>
 </assembly>
