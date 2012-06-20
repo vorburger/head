@@ -3,7 +3,6 @@ package org.mifos.server.tray;
 import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URI;
 
 public class MifosTray extends Tray {
 
@@ -22,6 +21,9 @@ public class MifosTray extends Tray {
 	}
 
 	public void started(boolean openBrowser) {
+		if (trayIcon == null)
+			return;
+		
 		PopupMenu popup = new PopupMenu();
 		addMenuItem(popup, "Open Mifos", new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -55,13 +57,6 @@ public class MifosTray extends Tray {
 	public void quit() {
 		message("Mifos", "has been stopped");
 		super.quit();
-	}
-
-	protected void openURL(String uri) {
-		try {
-			java.awt.Desktop.getDesktop().browse(new URI(uri));
-		} catch (Throwable t) {
-		}
 	}
 
 }
